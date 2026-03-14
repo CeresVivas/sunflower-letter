@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>sunflower letter · open when needed</title>
+    <style>
+        /* ------------------------------------------------
+           RESET + NEW AESTHETIC THEME (soft vintage)
+           completely different from previous pink themes
+        --------------------------------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f4efe7;  /* warm linen background */
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* main card – earthy, textured, new vibe */
+        .letter-set {
+            max-width: 700px;
+            width: 100%;
+            background: #fcf9f2;   /* soft cream */
+            border-radius: 48px 48px 32px 32px;
+            box-shadow: 0 30px 50px rgba(120, 80, 50, 0.15),
+                        0 10px 20px rgba(0, 0, 0, 0.05);
+            padding: 36px 28px 42px 28px;
+            border: 1px solid #e2d5c0;
+            position: relative;
+            backdrop-filter: blur(2px);
+        }
+
+        /* ----- TOP SECTION: SUNFLOWER (transparent bg, blend) ----- */
+        .flower-top {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        /* 
+           INSTRUCTION: REPLACE 'YOUR-IMAGE-URL-HERE' WITH YOUR SUNFLOWER LINK
+           The filter + mix-blend-mode help remove white background naturally.
+           For perfect transparency, use a PNG with alpha. If your image has a solid background,
+           this CSS will attempt to remove it (works best with white/light backgrounds).
+        */
+        .sunflower-img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            display: inline-block;
+            /* ----- magic to blend / remove background ----- */
+            filter: brightness(1.05) contrast(1.1);
+            mix-blend-mode: multiply;   /* makes white background disappear */
+            isolation: isolate;
+            background-blend-mode: screen;
+            /* soft float animation */
+            animation: swayGentle 7s infinite ease-in-out;
+            transform-origin: center;
+            /* subtle drop shadow to lift it */
+            filter: drop-shadow(0 12px 16px rgba(180, 130, 70, 0.25)) brightness(1.05);
+        }
+
+        /* if the image has a dark background, you could use 'screen' instead.
+           For now 'multiply' works magic on white/light backings. */
+        @keyframes swayGentle {
+            0% { transform: rotate(0deg) translateY(0); }
+            40% { transform: rotate(1.2deg) translateY(-6px); }
+            70% { transform: rotate(-0.8deg) translateY(4px); }
+            100% { transform: rotate(0deg) translateY(0); }
+        }
+
+        /* optional subtle caption */
+        .flower-caption {
+            font-size: 1.1rem;
+            color: #b1967a;
+            letter-spacing: 2px;
+            margin-top: 8px;
+            font-style: italic;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
+  /* ----- ENVELOPE / LETTER CONTAINER (below flower) ----- */
+.envelope-area {
+    background: #ede3d5;
+    border-radius: 24px 24px 16px 16px;
+    padding: 20px 16px 16px 16px;
+    margin: 12px 0 16px 0;
+    box-shadow: inset 0 2px 6px #dcccba, 0 10px 15px -6px rgba(100, 70, 40, 0.25);
+    border: 1px solid #dacbb8;
+    position: relative;
+    transition: all 0.2s;
+}
+
+/* envelope flap hint (decorative) - smaller and cleaner */
+.envelope-area::before {
+    content: "✧";
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    color: #bfa690;
+    background: #f4efe7;
+    padding: 0 16px;
+    border-radius: 30px;
+    letter-spacing: 4px;
+    text-shadow: 0 1px 3px #e6d5c0;
+}
+
+/* ----- THE OPEN BUTTON (elegant, fits aesthetic) ----- */
+.open-wrapper {
+    text-align: center;
+    margin: 16px 0 4px;
+}
+
+
+
+.open-btn {
+    background: #d9c3ac;
+    border: none;
+    border-radius: 40px;
+    padding: 14px 40px;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #2f2a24;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 0 #a48e78, 0 10px 18px rgba(150, 110, 70, 0.2);
+    cursor: pointer;
+    transition: 0.15s;
+    border: 1px solid #efe1cf;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    text-transform: uppercase;
+    word-spacing: 4px;
+    backdrop-filter: blur(4px);
+    width: auto;
+    min-width: 200px;
+}
+
+.open-btn:hover {
+    background: #e6d2bd;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 0 #a48e78, 0 15px 22px rgba(150, 110, 70, 0.25);
+}
+
+.open-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #a48e78, 0 8px 15px rgba(150, 110, 70, 0.15);
+}
+
+.open-btn:focus-visible {
+    outline: 3px solid #ad8b6e;
+    outline-offset: 4px;
+}
+
+/* ----- HIDDEN LETTER (clean, perfectly fitted) ----- */
+.letter-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    margin-top: 16px;
+    background: #fffcf4;
+    border-radius: 20px 20px 16px 16px;
+    padding: 20px 16px;
+    box-shadow: 0 8px 20px rgba(80, 50, 20, 0.1), inset 0 0 0 1px #f5e9d9;
+    border-left: 4px solid #dbb894;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.letter-content.show {
+    display: block;
+    opacity: 1;
+}
+
+/* Letter heading - clean and compact */
+.letter-heading {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2rem;
+    color: #ad7a5a;
+    border-bottom: 1px dashed #e7cdb4;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+    text-align: left;
+    width: 100%;
+}
+
+/* Main letter body - calligraphy style with perfect fit */
+.calligraphy-body {
+    font-family: 'Brush Script MT', 'cursive', 'Georgia', 'Times New Roman', serif;
+    font-size: clamp(1.4rem, 3.8vw, 2rem);
+    line-height: 1.4;
+    color: #3e332b;
+    text-align: left;
+    word-break: break-word;
+    font-weight: 400;
+    font-style: normal;
+    text-shadow: 0.5px 0.5px 1px rgba(255, 245, 235, 0.8);
+    letter-spacing: 0.02em;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23fcf6ed" opacity="0.3"/></svg>');
+    padding: 10px 8px;
+    border-radius: 12px;
+    white-space: pre-wrap;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* Signature - clean and matching */
+.signature {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 1.8rem;
+    text-align: left;
+    margin-top: 16px;
+    color: #886b52;
+    border-top: 1px dashed #decbb8;
+    padding-top: 10px;
+    width: 100%;
+}
+/* Keep the decorative border on left (original) */
+.letter-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    margin-top: 32px;
+    background: #fffcf4;
+    border-radius: 32px 32px 24px 24px;
+    padding: 36px 28px;
+    box-shadow: 0 12px 28px rgba(80, 50, 20, 0.15), inset 0 0 0 1px #f5e9d9;
+    border-left: 8px solid #dbb894;  /* Keep this on left */
+}
+        /* responsive */
+        @media (max-width: 500px) {
+            .letter-set { padding: 24px 16px; }
+            .open-btn { font-size: 1.5rem; padding: 14px 30px; }
+            .calligraphy-body { font-size: 1.8rem; }
+        }
+
+        /* accessibility & reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .sunflower-img { animation: none; }
+        }
+
+        .signature {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 1.8rem;
+    text-align: left;
+    margin-top: 16px;
+    color: #886b52;
+    border-top: 1px dashed #decbb8;
+    padding-top: 10px;
+    width: 100%;
+}
+
+/* ===== RESPONSIVE DESIGN FOR ALL SCREEN SIZES ===== */
+@media screen and (max-width: 768px) {
+    .letter-set {
+        max-width: 95%;
+        padding: 20px 15px;
+    }
+    
+    .sunflower-img {
+        max-width: 220px;
+    }
+    
+    .flower-caption {
+        font-size: 0.9rem;
+    }
+    
+    .envelope-area {
+        padding: 16px 12px;
+    }
+    
+    .open-btn {
+        padding: 12px 30px;
+        font-size: 1.4rem;
+        min-width: 160px;
+    }
+    
+    .letter-content {
+        padding: 16px 12px;
+    }
+    
+    .letter-heading {
+        font-size: 1.8rem;
+    }
+    
+    .calligraphy-body {
+        font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+        padding: 8px 6px;
+    }
+    
+    .signature {
+        font-size: 1.6rem;
+        margin-top: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .letter-set {
+        padding: 15px 10px;
+    }
+    
+    .sunflower-img {
+        max-width: 180px;
+    }
+    
+    .flower-caption {
+        font-size: 0.8rem;
+    }
+    
+    .envelope-area {
+        padding: 14px 10px;
+        border-radius: 20px 20px 14px 14px;
+    }
+    
+    .envelope-area::before {
+        font-size: 1.5rem;
+        top: -12px;
+        padding: 0 12px;
+    }
+    
+    .open-btn {
+        padding: 10px 25px;
+        font-size: 1.2rem;
+        min-width: 140px;
+        border-radius: 30px;
+    }
+    
+    .letter-content {
+        padding: 14px 10px;
+        border-left-width: 3px;
+    }
+    
+    .letter-heading {
+        font-size: 1.6rem;
+        padding-bottom: 4px;
+        margin-bottom: 10px;
+    }
+    
+    .calligraphy-body {
+        font-size: clamp(1rem, 3.2vw, 1.5rem);
+        line-height: 1.3;
+        padding: 6px 4px;
+    }
+    
+    .signature {
+        font-size: 1.4rem;
+        margin-top: 10px;
+        padding-top: 6px;
+    }
+}
+
+/* For very large screens */
+@media screen and (min-width: 1200px) {
+    .letter-set {
+        max-width: 800px;
+    }
+    
+    .sunflower-img {
+        max-width: 350px;
+    }
+    
+    .calligraphy-body {
+        font-size: 2.2rem;
+    }
+}
+
+/* Touch-friendly improvements */
+.open-btn, 
+.sunflower-img {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* Landscape orientation support */
+@media screen and (orientation: landscape) and (max-height: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    .letter-set {
+        padding: 15px;
+    }
+    
+    .sunflower-img {
+        max-width: 150px;
+    }
+    
+    .envelope-area {
+        margin: 8px 0;
+    }
+}
+
+/* Share button styles */
+.share-btn {
+    background: transparent;
+    border: 1px solid #d9c3ac;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-size: 1rem;
+    color: #886b52;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Georgia', serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(2px);
+}
+
+.share-btn:hover {
+    background: #d9c3ac;
+    color: #2f2a24;
+    transform: translateY(-2px);
+}
+
+.share-btn:active {
+    transform: translateY(1px);
+}
+
+.share-icon {
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 480px) {
+    .share-btn {
+        padding: 6px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="letter-set">
+        <!-- TOP: SUNFLOWER (transparent background blending) -->
+        <div class="flower-top">
+            <!-- 
+                ⭐⭐⭐ INSTRUCTION: REPLACE THE src URL WITH YOUR SUNFLOWER IMAGE LINK ⭐⭐⭐
+                The image will blend naturally (mix-blend-mode: multiply removes white background).
+                For best results, use a PNG with transparency or an image with a light/white background.
+            -->
+           <img src="palawewr.jpg" 
+     alt="sunflower" 
+     class="sunflower-img"
+     style="filter: brightness(1.1) contrast(1.1); 
+            mix-blend-mode: multiply; 
+            background-color: transparent;">
+            >
+            <!-- the onerror fallback is optional: if image fails, shows placeholder -->
+            <div class="flower-caption">flower for you, pretty</div>
+        </div>
+
+        <!-- ENVELOPE AREA (letter hidden inside) -->
+        <div class="envelope-area">
+            <!-- hidden letter that will appear on click -->
+            <div class="letter-content" id="letterContent">
+                <div class="letter-heading">Hi there, my pretty darling</div>
+                <div class="calligraphy-body" id="calligraphyMessage">
+Tapos na ako magpahinga, may energy na ulit ako para kulitin ka first of  all, i miss you so much. it’s been 5  hours na walang  communication and hindi na ako mapakali na hindi ka i-message. pwede bang kausapin mo na ulit ako? ‘wag ka na umalis. dito na lang, sige na oh🙁. if may nasabi ako kanina na nakasakit sa’yo, pasensya po.
+</div>
+                </div>
+                <div class="signature">yours 💛</div>
+            </div>
+
+            <!-- OPEN BUTTON (sits on envelope, before letter is revealed) -->
+            <div class="open-wrapper">
+                <button class="open-btn" id="openBtn">open letter</button>
+            </div>
+<div class="share-wrapper" style="text-align: center; margin-top: 15px;">
+    <button class="share-btn" id="shareBtn" aria-label="Share this letter">
+        <span class="share-icon">🔗</span> Share Letter
+    </button>
+    <div class="share-note" id="shareNote" style="display: none; margin-top: 8px; font-size: 0.9rem; color: #886b52; background: #f4efe7; padding: 6px 12px; border-radius: 20px; word-break: break-all;">
+        Link copied! ✨
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const openBtn = document.getElementById('openBtn');
+            const letterDiv = document.getElementById('letterContent');
+
+            openBtn.addEventListener('click', function() {
+                if (letterDiv.classList.contains('show')) {
+                    return; // already open
+                }
+                letterDiv.classList.add('show');
+                // focus on letter for accessibility
+                const letterBody = document.getElementById('calligraphyMessage');
+                if (letterBody) {
+                    letterBody.setAttribute('tabindex', '-1');
+                    letterBody.focus({ preventScroll: false });
+                }
+                // optional: change button text
+                openBtn.textContent = '💌 unfolded 💌';
+                openBtn.disabled = true;
+                openBtn.style.opacity = 0.8;
+            });
+        })();
+
+        // Share/Link functionality
+const shareBtn = document.getElementById('shareBtn');
+const shareNote = document.getElementById('shareNote');
+
+if (shareBtn) {
+    shareBtn.addEventListener('click', async function() {
+        const url = window.location.href;
+        
+        try {
+            await navigator.clipboard.writeText(url);
+            shareNote.style.display = 'block';
+            shareNote.textContent = '✨ Link copied to clipboard! ✨';
+            
+            setTimeout(() => {
+                shareNote.style.display = 'none';
+            }, 3000);
+        } catch (err) {
+            const textArea = document.createElement('textarea');
+            textArea.value = url;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            shareNote.style.display = 'block';
+            shareNote.textContent = '📋 Link copied!';
+            
+            setTimeout(() => {
+                shareNote.style.display = 'none';
+            }, 2000);
+        }
+    });
+}
+    </script>
+
+    <!-- 
+        ADDITIONAL NOTE: 
+        - The sunflower uses mix-blend-mode: multiply to drop white/light backgrounds.
+        - If your image already has transparency (PNG), it will display perfectly.
+        - The entire theme is warm, vintage, and different from the previous pink style.
+        - The letter uses a beautiful calligraphy font (Brush Script, with fallbacks).
+    -->
+</body>
+</html>
